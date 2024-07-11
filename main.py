@@ -31,12 +31,13 @@ def get_sprite(sheet, x, y, width, height, scale:tuple=None):
 # Initialize the game board
 board = gameboard.Gameboard()
 board.initializeBoard()
-board.initiateGame()
 
 # Run until the user asks to quit
 RUNNING = True
-while RUNNING:
+PREGAME = True
+while (RUNNING):
 
+    
     # Update Global Timer
     globals.globalTime = pygame.time.get_ticks()
 
@@ -51,13 +52,23 @@ while RUNNING:
     # pressed
     pressedKeys = pygame.key.get_pressed()
 
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        x, y = pygame.mouse.get_pos() # Get click position
-        for row in board.getTileArray():
-            for tile in row:
-                if tile.rect.collidepoint(x, y): # Check if click is within rectangle
-                    tile.whenClicked()
-                    break
+    if (PREGAME):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = pygame.mouse.get_pos() # Get click position
+            for row in board.getTileArray():
+                for tile in row:
+                    if tile.rect.collidepoint(x, y): # Check if click is within rectangle
+
+                        # Reveals the Tile (which will never be a mine because mines havent been placed yet)
+                        tile.reveal()
+
+                        # Places Mines
+                        board.initiateGame()
+
+                        # Exit Pregame
+                        PREGAME = False
+                        break
+                    
 
     for row in board.getTileArray():
         for tile in row:

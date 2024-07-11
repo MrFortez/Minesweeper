@@ -19,4 +19,4 @@ spriteSheet = None
 
 # Editable Game Variables
 boardSize = (15, 15)
-mineDensity = .1
+mineDensity = .2

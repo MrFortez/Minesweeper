@@ -1,7 +1,9 @@
 import pygame
+import globals
 from tile import Tile
 from pygame.sprite import Group
 from constants import *
+
 
 class MineTile(Tile):
     def __init__(self, cordsX, cordsY, spriteX, spriteY) -> None:
@@ -9,3 +11,6 @@ class MineTile(Tile):
 
     def isMine(self):
         return True
+    
+    def reveal(self):
+        pass

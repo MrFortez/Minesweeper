@@ -13,9 +13,13 @@ class Tile(pygame.sprite.Sprite):
 
         # this will create a surface object with a tile from the tile spritesheet
         self.surf = self.getSprite(globals.spriteSheet, spriteX, spriteY, 16, 16, (32, 32))
+
+        # used for managing the position of the tile onscreen
         self.rect = self.surf.get_rect()
         self.rect.x = cordsX
         self.rect.y = cordsY
+
+        self.isRevealed = False
 
 
 
@@ -38,8 +42,12 @@ class Tile(pygame.sprite.Sprite):
             self.rect.y = pos[1]   
 
     # This method is run when the tile is clicked
-    def whenClicked(self):
+    def reveal(self):
+        self.isRevealed = True
         self.surf = self.getSprite(globals.spriteSheet, 0, 32, 16, 16, (32, 32))
+
+    def hasBeenRevealed(self):
+        return self.isRevealed
 
     def isMine(self):
         return False
