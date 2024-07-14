@@ -8,7 +8,7 @@ import globals
 # The base class for all sprites in the game.
 class Tile(pygame.sprite.Sprite):
 
-    def __init__(self, cordsX, cordsY, spriteX, spriteY) -> None:
+    def __init__(self, pixelX, pixelY, spriteX, spriteY, cordsX, cordsY) -> None:
         pygame.sprite.Sprite.__init__(self)
 
         # this will create a surface object with a tile from the tile spritesheet
@@ -16,12 +16,16 @@ class Tile(pygame.sprite.Sprite):
 
         # used for managing the position of the tile onscreen
         self.rect = self.surf.get_rect()
-        self.rect.x = cordsX
-        self.rect.y = cordsY
+
+        # These are the tile's pixel position on the screen
+        self.rect.x = pixelX
+        self.rect.y = pixelY
+
+        # These are the position of the tile on the tileArray
+        self.cordsX = cordsX
+        self.cordsY = cordsY
 
         self.isRevealed = False
-
-
 
     # Function to extract a sprite
     def getSprite(self, sheet, x, y, width, height, scale:tuple=None):
@@ -46,8 +50,16 @@ class Tile(pygame.sprite.Sprite):
         self.isRevealed = True
         self.surf = self.getSprite(globals.spriteSheet, 0, 32, 16, 16, (32, 32))
 
+    # This method sets a tile's sprite to a flag.
+    def flag(self):
+        self.surf = self.getSprite(globals.spriteSheet, 48, 32, 16, 16, (32, 32))
+
     def hasBeenRevealed(self):
         return self.isRevealed
 
     def isMine(self):
         return False
+    
+    def __str__(self):
+        return f"Tile. Pixel Position: ({self.rect.x}, {self.rect.y}). Board Position: ({self.cordsX}, {self.cordsY}). Is Mine? {self.isMine()}. Has Been Revealed? {self.hasBeenRevealed()}."
+    

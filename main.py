@@ -19,7 +19,7 @@ globals.spriteSheet = pygame.image.load(os.path.join("art", "minesweeper.png")).
 # Function to extract a sprite
 def get_sprite(sheet, x, y, width, height, scale:tuple=None):
     sprite = pygame.Surface((width, height), pygame.SRCALPHA)
-    sprite.blit(sheet, (0, 0), (x, y, width, height))\
+    sprite.blit(sheet, (0, 0), (x, y, width, height))
     
     # Scale the sprite if a scale is provided
     if scale:
@@ -35,6 +35,7 @@ board.initializeBoard()
 # Run until the user asks to quit
 RUNNING = True
 PREGAME = True
+DEAD = False
 while (RUNNING):
 
     
@@ -65,10 +66,40 @@ while (RUNNING):
                         # Places Mines
                         board.initiateGame()
 
+                        # Reveal all adjacent non-mine tiles to the starting tile
+                        board.expand(tile)
+
                         # Exit Pregame
                         PREGAME = False
                         break
-                    
+    
+    if (not PREGAME):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = pygame.mouse.get_pos() # Get click position
+            for row in board.getTileArray():
+                for tile in row:
+                    if tile.rect.collidepoint(x, y): # Check if click is within rectangle
+
+                        # On left click, reveal the tile
+                        if (pygame.mouse.get_pressed()[0]):
+                            # Reveals the Tile
+                            tile.reveal();
+
+                            # If the chosen tile is a mine tile, initiate end sequence
+                            if (tile.isMine()):
+                                DEAD = True
+                                break
+
+                            # If the chosen tile is a blank tile, reveal all adjacent non-mine tiles
+                            if (not tile.isMine() and tile.getNumber() == 0):
+                                board.expand(tile)
+
+                        # On right click, flag the tile
+                        elif (pygame.mouse.get_pressed()[2]):
+                            tile.flag()
+                            
+                        break
+
 
     for row in board.getTileArray():
         for tile in row:
@@ -79,4 +110,8 @@ while (RUNNING):
 
     # Ensure program maintains a rate of 30 frames per second
     globals.clock.tick(120)
+
+    if (DEAD):
+        board.revealAll()
+        
     

@@ -6,11 +6,11 @@ from constants import *
 
 
 class MineTile(Tile):
-    def __init__(self, cordsX, cordsY, spriteX, spriteY) -> None:
-        super().__init__(cordsX, cordsY, spriteX, spriteY)
+    def __init__(self, pixelX, pixelY, spriteX, spriteY, cordsX, cordsY) -> None:
+        super().__init__(pixelX, pixelY, spriteX, spriteY, cordsX, cordsY)
 
     def isMine(self):
         return True
     
     def reveal(self):
-        pass
+        self.surf = self.getSprite(globals.spriteSheet, 32, 32, 16, 16, (32, 32))

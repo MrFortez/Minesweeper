@@ -5,8 +5,8 @@ from pygame.sprite import Group
 from constants import *
 
 class NumberTile(Tile):
-    def __init__(self, cordsX, cordsY, spriteX, spriteY, number = 0) -> None:
-        super().__init__(cordsX, cordsY, spriteX, spriteY)
+    def __init__(self, pixelX, pixelY, spriteX, spriteY, cordsX, cordsY, number = 0) -> None:
+        super().__init__(pixelX, pixelY, spriteX, spriteY, cordsX, cordsY)
         self.number = number
 
     # a check used to determine if the given tile is a mine
@@ -16,9 +16,13 @@ class NumberTile(Tile):
     # adds the given value to the number
     def addNumber(self, val):
         self.number += val
+
+    def getNumber(self):
+        return self.number
     
     def reveal(self):
-        print(self.number)
+        self.isRevealed = True
+
         if (self.number >=1 and self.number <= 4):
             self.surf = self.getSprite(globals.spriteSheet, (self.number - 1) * 16, 0, 16, 16, (32, 32))
 
