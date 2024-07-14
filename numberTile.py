@@ -24,11 +24,11 @@ class NumberTile(Tile):
         self.isRevealed = True
 
         if (self.number >=1 and self.number <= 4):
-            self.surf = self.getSprite(globals.spriteSheet, (self.number - 1) * 16, 0, 16, 16, (32, 32))
+            self.surf = self.getSprite(globals.spriteSheet, (self.number - 1) * 16, 0, 16, 16)
 
         elif (self.number >=5 and self.number <= 8):
-            self.surf = self.getSprite(globals.spriteSheet, (self.number - 5) * 16, 16, 16, 16, (32, 32))
+            self.surf = self.getSprite(globals.spriteSheet, (self.number - 5) * 16, 16, 16, 16)
 
         else:
-            self.surf = self.getSprite(globals.spriteSheet, 0, 32, 16, 16, (32, 32))
+            self.surf = self.getSprite(globals.spriteSheet, 0, 32, 16, 16)
             

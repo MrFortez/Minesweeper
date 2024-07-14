@@ -96,7 +96,8 @@ while (RUNNING):
 
                         # On right click, flag the tile
                         elif (pygame.mouse.get_pressed()[2]):
-                            tile.flag()
+                            if (not tile.hasBeenRevealed()):
+                                tile.flag()
                             
                         break
 

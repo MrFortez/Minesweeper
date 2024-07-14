@@ -12,7 +12,7 @@ class Tile(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         # this will create a surface object with a tile from the tile spritesheet
-        self.surf = self.getSprite(globals.spriteSheet, spriteX, spriteY, 16, 16, (32, 32))
+        self.surf = self.getSprite(globals.spriteSheet, spriteX, spriteY, 16, 16)
 
         # used for managing the position of the tile onscreen
         self.rect = self.surf.get_rect()
@@ -28,7 +28,7 @@ class Tile(pygame.sprite.Sprite):
         self.isRevealed = False
 
     # Function to extract a sprite
-    def getSprite(self, sheet, x, y, width, height, scale:tuple=None):
+    def getSprite(self, sheet, x, y, width, height, scale:tuple=(globals.tileSize, globals.tileSize)):
         sprite = pygame.Surface((width, height), pygame.SRCALPHA)
         sprite.blit(sheet, (0, 0), (x, y, width, height))
         
@@ -48,11 +48,11 @@ class Tile(pygame.sprite.Sprite):
     # This method is run when the tile is clicked
     def reveal(self):
         self.isRevealed = True
-        self.surf = self.getSprite(globals.spriteSheet, 0, 32, 16, 16, (32, 32))
+        self.surf = self.getSprite(globals.spriteSheet, 0, 32, 16, 16)
 
     # This method sets a tile's sprite to a flag.
     def flag(self):
-        self.surf = self.getSprite(globals.spriteSheet, 48, 32, 16, 16, (32, 32))
+        self.surf = self.getSprite(globals.spriteSheet, 48, 32, 16, 16)
 
     def hasBeenRevealed(self):
         return self.isRevealed

@@ -4,8 +4,7 @@ import globals
 from tile import Tile
 from mineTile import MineTile
 from numberTile import NumberTile
-from random import randint, choice, shuffle
-
+from random import randint
 
 class Gameboard():
     def __init__(self):
@@ -50,7 +49,7 @@ class Gameboard():
             for j in range(0, globals.boardSize[1]):
 
                 # This places a new tile onto the board, defaulting to the unlicked state.
-                self.tileArray[i].append(NumberTile(i * 32, j * 32, 16, 32, i, j));
+                self.tileArray[i].append(NumberTile(i * globals.tileSize, j * globals.tileSize, 16, 32, i, j));
 
     # This only occurs after the player clicks their first tile, randomly placing mines throughout the board.
     def initiateGame(self):
@@ -84,7 +83,7 @@ class Gameboard():
                             break
 
             # Place the mine
-            self.getTileArray()[targetRow][targetColumn] = MineTile(targetRow * 32, targetColumn * 32, 16, 32, targetRow, targetColumn)
+            self.getTileArray()[targetRow][targetColumn] = MineTile(targetRow * globals.tileSize, targetColumn * globals.tileSize, 16, 32, targetRow, targetColumn)
 
             # Increment the value of number tiles surrounding the chosen mine.
             for row in range(targetRow - 1, targetRow + 2):

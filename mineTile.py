@@ -13,4 +13,5 @@ class MineTile(Tile):
         return True
     
     def reveal(self):
-        self.surf = self.getSprite(globals.spriteSheet, 32, 32, 16, 16, (32, 32))
+        self.isRevealed = True
+        self.surf = self.getSprite(globals.spriteSheet, 32, 32, 16, 16)

@@ -18,5 +18,6 @@ globalTime = pygame.time.get_ticks()
 spriteSheet = None
 
 # Editable Game Variables
-boardSize = (10, 10)
+boardSize = (30, 30)
 mineDensity = .1
+tileSize = 24
