@@ -18,6 +18,10 @@ globalTime = pygame.time.get_ticks()
 spriteSheet = None
 
 # Editable Game Variables
-boardSize = (30, 30)
-mineDensity = .1
-tileSize = 24
+boardSize = (19, 19)
+
+# percentage of tiles that are mines.
+mineDensity = .15
+
+# keep this as a multiple of 16 for a normal gameplay experience
+tileSize = 32
